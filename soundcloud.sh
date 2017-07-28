@@ -51,14 +51,16 @@ function clean() {
 
 function youtubedl_download() {
 	cd $temp_dir
-	youtube-dl --write-description --write-info-json --write-thumbnail $1
+	youtube-dl --write-description --write-info-json --write-thumbnail $SOUNDCLOUD_URL
 	#these config options basically archive all but comments.
 }
 
 function ia_upload() {
-	USER_URL="${0#https://soundcloud.com/}"
+	USER_URL="${SOUNDCLOUD_URL#https://soundcloud.com/}"
 	ia upload $USER_URL $temp_dir --metadata="mediatype:audio" --metadata="collection:opensource_audio" --metadata="noindex"
 	#items are noindex by default, so one can set the description and other xml data later.
 }
+
+$SOUNDCLOUD_URL=$1
 
 trap clean EXIT
