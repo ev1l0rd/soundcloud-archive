@@ -63,4 +63,11 @@ function ia_upload() {
 
 $SOUNDCLOUD_URL=$1
 
+dependency_check()
+dependency_fix()
+create_temp_dir()
+youtubedl_download()
+ia_upload()
+clean()
+
 trap clean EXIT
