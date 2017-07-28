@@ -51,14 +51,14 @@ function clean() {
 
 function youtubedl_download() {
 	cd "$temp_dir" || exit 1
-	youtube-dl --write-description --write-info-json --write-thumbnail "$SOUNDCLOUD_URL"
-	#these config options basically archive all but comments.
+	youtube-dl --write-description --write-thumbnail --write-info-json "$SOUNDCLOUD_URL"
+	#these config options archive the thumbnail and description
 	cd "$curdir" || exit 1
 }
 
 function ia_upload() {
 	USER_URL="${SOUNDCLOUD_URL#https://soundcloud.com/}"
-	ia upload "$USER_URL-soundcloud" "$temp_dir" --metadata="mediatype:audio" --metadata="collection:opensource_audio" --metadata="noindex"
+	ia upload "$USER_URL-soundcloud" "$temp_dir" --metadata="mediatype:audio" --metadata="collection:opensource_audio" --metadata="noindex:true"
 	#items are noindex by default, so one can set the description and other xml data later.
 }
 
