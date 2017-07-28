@@ -18,26 +18,26 @@ EOF
 function dependency_check() {
 	command -v pip2 >/dev/null 2>&1 || { echo >&2 "PIP for Python 2.7 is not installed. Install pip for Python 2.7, then re-run this script."; exit 1; }
 	command -v ia >/dev/null 2>&1 || { echo >&2 "Internet Archive tools not installed."; IA_TOOLS_SETUP="yes"; }
-	command -v youtube-dl >/dev/null 2>&1 || { echo >&2 "Youtube-DL not installed."; YOUTUBE-DL_SETUP="yes"; }
+	command -v youtube-dl >/dev/null 2>&1 || { echo >&2 "Youtube-DL not installed."; YOUTUBEDL_SETUP="yes"; }
 	
 }
 
 function dependency_fix() {
-	if [["YOUTUBE-DL_SETUP" == "yes"]] {
+	if [[ "$YOUTUBEDL_SETUP" == "yes" ]]; then {
 		sudo pip install youtube-dl
 		echo "youtube-dl installed. Continuing."
-	}
-	if [["IA_TOOLS_SETUP" == "yes"]] {
+	} fi
+	if [[ "$IA_TOOLS_SETUP" == "yes" ]]; then {
 		sudo pip install internetarchive
 		echo "Internet Archive Tools installed. Please run 'ia configure', then re-run this script."
 		exit 0
-	}
+	} fi
 }
 
 function create_temp_dir() {
 	#shortened version of https://stackoverflow.com/a/34676160/4666756
 	curdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-	temp_dir=`mktemp -d -p "$curdir"`
+	temp_dir=$(mktemp -d -p "$curdir")
 	if [[ ! "$temp_dir" || ! -d "$temp_dir" ]]; then
 	  echo "Could not create temporary directory."
 	  exit 1
@@ -45,19 +45,19 @@ function create_temp_dir() {
 }
 
 function clean() {
-	rm -rf $temp_dir
+	rm -rf "$temp_dir"
 	echo "Temporary directory removed"
 }
 
 function youtubedl_download() {
-	cd $temp_dir
-	youtube-dl --write-description --write-info-json --write-thumbnail $SOUNDCLOUD_URL
+	cd "$temp_dir" || exit 1
+	youtube-dl --write-description --write-info-json --write-thumbnail "$SOUNDCLOUD_URL"
 	#these config options basically archive all but comments.
 }
 
 function ia_upload() {
 	USER_URL="${SOUNDCLOUD_URL#https://soundcloud.com/}"
-	ia upload $USER_URL $temp_dir --metadata="mediatype:audio" --metadata="collection:opensource_audio" --metadata="noindex"
+	ia upload "$USER_URL" "$temp_dir" --metadata="mediatype:audio" --metadata="collection:opensource_audio" --metadata="noindex"
 	#items are noindex by default, so one can set the description and other xml data later.
 }
 
@@ -65,18 +65,18 @@ function positional_check() {
 	#taken from https://unix.stackexchange.com/a/25947/178657
 	if [ $# -eq 0 ]; then
 		echo "No URL given."
-		usage()
+		usage
 		exit 1
 	fi
 }
 
-positional_check()
-$SOUNDCLOUD_URL=$1
-dependency_check()
-dependency_fix()
-create_temp_dir()
-youtubedl_download()
-ia_upload()
-clean()
+positional_check
+SOUNDCLOUD_URL=$1
+dependency_check
+dependency_fix
+create_temp_dir
+youtubedl_download
+ia_upload
+clean
 
 trap clean EXIT
