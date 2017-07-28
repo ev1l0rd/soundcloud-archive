@@ -8,7 +8,9 @@ function usage() {
 	cat <<EOF
 	Usage: $0 SOUNDCLOUD_USER
 
-	SOUNDCLOUD_USER is an URL leading to a Soundcloud profile.
+	SOUNDCLOUD_USER is an URL leading to a Soundcloud profile (MUST BE HTTPS).
+	
+	e.g. https://soundcloud.com/jimquisiton
 
 EOF
 }
@@ -51,6 +53,12 @@ function youtubedl_download() {
 	cd $temp_dir
 	youtube-dl --write-description --write-info-json --write-thumbnail $1
 	#these config options basically archive all but comments.
+}
+
+function ia_upload() {
+	USER_URL="${0#https://soundcloud.com/}"
+	ia upload $USER_URL $temp_dir --metadata="mediatype:audio" --metadata="collection:opensource_audio" --metadata="noindex"
+	#items are noindex by default, so one can set the description and other xml data later.
 }
 
 trap clean EXIT
