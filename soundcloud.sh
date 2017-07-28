@@ -53,6 +53,7 @@ function youtubedl_download() {
 	cd "$temp_dir" || exit 1
 	youtube-dl --write-description --write-info-json --write-thumbnail "$SOUNDCLOUD_URL"
 	#these config options basically archive all but comments.
+	cd "$curdir" || exit 1
 }
 
 function ia_upload() {
