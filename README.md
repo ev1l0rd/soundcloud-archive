@@ -1,5 +1,7 @@
 ## soundcloud-archive tool
 
+[![Travis](https://img.shields.io/travis/ev1l0rd/soundcloud-archive.svg)](https://travis-ci.org/ev1l0rd/soundcloud-archive) [![Github All Releases](https://img.shields.io/github/downloads/ev1l0rd/soundcloud-archive/total.svg)](https://github.com/ev1l0rd/soundcloud-archive/releases) [![GitHub release](https://img.shields.io/github/release/ev1l0rd/soundcloud-archive.svg)](https://github.com/ev1l0rd/soundcloud-archive/releases) [![GitHub license](https://img.shields.io/badge/license-GPLv3.0-blue.svg)](https://raw.githubusercontent.com/ev1l0rd/soundcloud-archive/master/LICENSE)
+
 A simple shell script that will archive all soundcloud tracks from a single user, along with all the json data, description and thumbnails. It will likely only work on Linux due to mktemp having different flags on macOS.
 
 Grabs the publicly available 128kbps MP3 streams for each item using youtube-dl.
