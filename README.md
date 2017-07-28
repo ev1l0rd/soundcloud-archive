@@ -6,7 +6,7 @@ Grabs the publicly available 128kbps MP3 streams for each item using youtube-dl.
 
 After that, it will publish all data to an archive.org item.
 
-Made because [Jason Scott is forced to drop any official ArchiveTeam effort to save SoundCloud](https://twitter.com/textfiles/status/888093838107189249) ^[archive.is](http://archive.is/KrO14). This script is obviously not affiliated with ArchiveTeam (think it oughta be clear, but I'm saying this anyway).
+Made because [Jason Scott is forced to drop any official ArchiveTeam effort to save SoundCloud](https://twitter.com/textfiles/status/888093838107189249) <sup>[archive.is](http://archive.is/KrO14)</sup>. This script is obviously not affiliated with ArchiveTeam (think it oughta be clear, but I'm saying this anyway).
 
 Can be run multiple times, even while the previous script is running, generally without issues as `mktemp` is used to create a temporary directory that is removed after running the script.
 
