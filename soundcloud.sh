@@ -42,7 +42,7 @@ function create_temp_dir() {
 	fi
 }
 
-function clean {
+function clean() {
 	rm -rf $temp_dir
 	echo "Temporary directory removed"
 }
