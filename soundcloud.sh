@@ -62,16 +62,15 @@ function ia_upload() {
 	#items are noindex by default, so one can set the description and other xml data later.
 }
 
-function positional_check() {
-	#taken from https://unix.stackexchange.com/a/25947/178657
-	if [ $# -eq 0 ]; then
-		echo "No URL given."
-		usage
-		exit 1
-	fi
-}
 
-positional_check
+#taken from https://unix.stackexchange.com/a/25947/178657
+#cannot put this in function, since you cannot check for pos. params in a function
+if [ $# -eq 0 ]; then
+	echo "No URL given."
+	usage
+	exit 1
+fi
+
 SOUNDCLOUD_URL=$1
 dependency_check
 dependency_fix
