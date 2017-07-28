@@ -47,5 +47,10 @@ function clean() {
 	echo "Temporary directory removed"
 }
 
+function youtubedl_download() {
+	cd $temp_dir
+	youtube-dl --write-description --write-info-json --write-thumbnail $1
+	#these config options basically archive all but comments.
+}
 
 trap clean EXIT
