@@ -1,8 +1,21 @@
 #!/bin/bash
 # -- SOUNDCLOUD ARCHIVE SCRIPT --
 # written by ev1l0rd
-# under the MIT License
-# archives an entire soundcloud user to archive.org
+#    archives an entire soundcloud user to archive.org
+#    Copyright (C) 2017 Valentijn "ev1l0rd"
+
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 function usage() {
 	cat <<EOF
@@ -12,6 +25,15 @@ function usage() {
 	
 	e.g. https://soundcloud.com/jimquisiton
 
+EOF
+}
+
+function license() {
+cat <<EOF
+    soundcloud.sh  Copyright (C) 2017 Valentijn "Ev1l0rd"
+    This program comes with ABSOLUTELY NO WARRANTY.
+    This is free software, and you are welcome to redistribute it
+    under certain conditions; Check LICENSE for more details.
 EOF
 }
 
@@ -71,12 +93,11 @@ if [ $# -eq 0 ]; then
 	exit 1
 fi
 
+license
 SOUNDCLOUD_URL=$1
 dependency_check
 dependency_fix
 create_temp_dir
 youtubedl_download
 ia_upload
-clean
-
 trap clean EXIT
