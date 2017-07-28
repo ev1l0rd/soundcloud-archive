@@ -57,7 +57,7 @@ function youtubedl_download() {
 
 function ia_upload() {
 	USER_URL="${SOUNDCLOUD_URL#https://soundcloud.com/}"
-	ia upload "$USER_URL" "$temp_dir" --metadata="mediatype:audio" --metadata="collection:opensource_audio" --metadata="noindex"
+	ia upload "$USER_URL-soundcloud" "$temp_dir" --metadata="mediatype:audio" --metadata="collection:opensource_audio" --metadata="noindex"
 	#items are noindex by default, so one can set the description and other xml data later.
 }
 
